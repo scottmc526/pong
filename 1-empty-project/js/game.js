@@ -172,6 +172,7 @@ mainState.prototype = {
       this.enablePaddles(true);
       this.enableBoundaries(false);
       this.resetBall();
+      this.resetScores();
 
     },
     resetBall: function() {
@@ -247,11 +248,28 @@ mainState.prototype = {
     ballOutOfBounds: function (){
       if (this.ballSprite.x < 0) {
         this.missedSide = 'left';
+        this.scoreRight++;
       } else if (this.ballSprite.x > gameProperties.screenWidth) {
         this.missedSide = 'right'
+        this.scoreLeft++;
       }
-      this.resetBall();
+      this.updateScore();
+
+      if(this.scoreLeft >= gameProperties.scoreToWin || this.scoreRight >= gameProperties.scoreToWin) {
+        this.startDemo();
+      } else {
+        this.resetBall();
+      }
     },
+    resetScores: function () {
+      this.scoreLeft = 0;
+      this.scoreRight = 0;
+      this.updateScore();
+    },
+    updateScore: function() {
+      this.tf_scoreLeft.text = this.scoreLeft;
+      this.tf_scoreRight.text = this.scoreRight;
+    }
 };
 
 // Initialise the Phaser framework by creating an instance of a Phaser.Game object and assigning it to a local variable called 'game'.
