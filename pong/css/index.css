@@ -1,0 +1,39 @@
+body {
+  margin: 0;
+  background: url(http://previews.123rf.com/images/leeser/leeser1105/leeser110500038/9462574-Detail-on-a-tennis-court-Stock-Photo.jpg);
+  height: 100vh;
+  width: 100vw;
+}
+
+h1 {
+  font-family: Copperplate, 'Copperplate Gothic Light', fantasy;
+  font-size: 64px;
+  text-align: center;
+  color: #210000;
+}
+
+p {
+  font-style: Copperplate, 'Copperplate Gothic Light', fantasy;
+  font-size: 48px;
+  text-align: center;
+  color: #210000;
+}
+.container {
+  display: flex;
+  flex-direction: row;
+  width: 100vw;
+  height: 30vh;
+}
+.click {
+  position: relative;
+  margin-left: 12vw;
+  height: 10vh;
+  width: 10vw;
+  text-align: center;
+  border-radius: 5px;
+  background-color: #011618;
+  color: #FFFFFF;
+  font-family: Optima;
+  font-size: 1em;
+  border: 0;
+}
