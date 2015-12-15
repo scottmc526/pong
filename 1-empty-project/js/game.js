@@ -44,6 +44,14 @@ var soundAssets = {
   mp4URL: '.m4a',
   oggURL: '.ogg'
 };
+
+var fontAssets = {
+  scoreLeft_x: gameProperties.screenWidth * .25,
+  scoreRight_x : gameProperties.screenWidth * .75,
+  scoreTop_y: 10,
+
+  scoreFontStyle: {font: '80px Arial', fill: '#FFFFFF', align: 'center'},
+}
 // The main state that contains our game. Think of states like pages or screens such as the splash screen, main menu, game screen, high scores, inventory, etc.
 var mainState = function(game){
   this.backgroundGraphics;
@@ -56,6 +64,14 @@ var mainState = function(game){
   this.paddleLeft_down;
   this.paddleRight_up;
   this.paddleRight_down;
+
+  this.missedSide;
+
+  this.scoreLeft;
+  this.scoreRight;
+
+  this.tf_scoreLeft;
+  this.tf_scoreLeft;
 };
 mainState.prototype = {
 
@@ -68,6 +84,8 @@ mainState.prototype = {
       game.load.audio(soundAssets.ballBounceName, [soundAssets.ballBounceURL+soundAssets.oggURL]);
       game.load.audio(soundAssets.ballHitName, [soundAssets.ballHitURL+soundAssets.oggURL]);
       game.load.audio(soundAssets.ballMissedName, [soundAssets.ballMissedURL+soundAssets.oggURL]);
+
+      game.load.image('tennisCourt', 'assets/tennis-court.png')
     },
 
     // The create function is called after all assets are loaded and ready for use. This is where we add all our sprites, sounds, levels, text, etc.
@@ -76,6 +94,8 @@ mainState.prototype = {
       this.initPhysics();
       this.initKeyboard();
       this.startDemo();
+      game.stage.backgroundColor = '#337799';
+
     },
 
     // The update function is run every frame. The default frame rate is 60 frames per second, so the update function is run 60 times per second
@@ -104,6 +124,12 @@ mainState.prototype = {
       this.paddleRightSprite.anchor.set(0.5, 0.5);
       this.paddleRightSprite.scale.setTo(1, 5);
 
+      this.tf_scoreLeft = game.add.text(fontAssets.scoreLeft_x, fontAssets.scoreTop_y, '0', fontAssets.scoreFontStyle)
+      this.tf_scoreLeft.anchor.set(0.5, 0);
+
+      this.tf_scoreRight = game.add.text(fontAssets.scoreRight_x, fontAssets.scoreTop_y, '0', fontAssets.scoreFontStyle)
+      this.tf_scoreRight.anchor.set(0.5, 0)
+
     },
     initPhysics: function() {
       game.physics.startSystem(Phaser.Physics.ARCADE);
@@ -113,6 +139,7 @@ mainState.prototype = {
       this.ballSprite.body.collideWorldBounds = true;
       this.ballSprite.body.immovable = true;
       this.ballSprite.body.bounce.set(1);
+      this.ballSprite.events.onOutOfBounds.add(this.ballOutOfBounds, this);
 
       this.paddleGroup = game.add.group();
       this.paddleGroup.enableBody = true;
@@ -156,6 +183,12 @@ mainState.prototype = {
     startBall: function () {
       this.ballSprite.visible = true;
       var randomAngle = game.rnd.pick(gameProperties.ballRandomStartingAngleRight.concat(gameProperties.ballRandomStartingAngleLeft));
+
+      if (this.missedSide == 'right') {
+        randomAngle = game.rnd.pick(gameProperties.ballRandomStartingAngleLeft);
+      } else if (this.missedSide == 'left') {
+        randomAngle = game.rnd.pick(gameProperties.ballRandomStartingAngleRight)
+      }
 
       game.physics.arcade.velocityFromAngle(randomAngle, gameProperties.ballVelocity, this.ballSprite.body.velocity);
     },
@@ -210,7 +243,15 @@ mainState.prototype = {
         }
         game.physics.arcade.velocityFromAngle(returnAngle, gameProperties.ballVelocity, this.ballSprite.body.velocity)
       }
-    }
+    },
+    ballOutOfBounds: function (){
+      if (this.ballSprite.x < 0) {
+        this.missedSide = 'left';
+      } else if (this.ballSprite.x > gameProperties.screenWidth) {
+        this.missedSide = 'right'
+      }
+      this.resetBall();
+    },
 };
 
 // Initialise the Phaser framework by creating an instance of a Phaser.Game object and assigning it to a local variable called 'game'.
