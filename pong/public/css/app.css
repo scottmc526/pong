@@ -1,8 +1,21 @@
 body {
   margin: 0;
   background-color: green;
+  display: flex;
 }
 #gameDiv {
-  margin-top: 1%;
-  margin-left: 10%;
+  margin: 0 auto;
+}
+
+.left {
+  height: 80vh;
+  width: 15vw;
+  border: 1px solid black;
+  margin: auto;
+}
+.right {
+  height: 80vh;
+  width: 15vw;
+  border: 1px solid black;
+  margin: auto;
 }
