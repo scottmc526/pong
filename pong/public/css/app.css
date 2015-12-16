@@ -8,14 +8,24 @@ body {
 }
 
 .left {
-  height: 80vh;
+  height: 60vh;
   width: 15vw;
   border: 1px solid black;
   margin: auto;
+  display: flex;
 }
 .right {
   height: 80vh;
   width: 15vw;
   border: 1px solid black;
   margin: auto;
+}
+.player {
+  margin: auto;
+}
+img {
+  border-radius: 5px;
+  margin: auto;
+  height: 20%;
+  width: 50%;
 }

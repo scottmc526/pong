@@ -1,12 +1,12 @@
 // The game properties object that currently only contains the screen dimensions
 var gameProperties = {
-    screenWidth: 1000,
+    screenWidth: 800,
     screenHeight: 600,
 
     dashSize: 5,
 
     paddleLeft_x: 10,
-    paddleRight_x: 990,
+    paddleRight_x: 790,
     paddleVelocity: 600,
     paddleSegmentsMax: 4,
     paddleSegmentHeight: 20,
