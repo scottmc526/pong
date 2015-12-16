@@ -1,6 +1,6 @@
 body {
+  background-color: black;
   margin: 0;
-  background-color: green;
   display: flex;
 }
 #gameDiv {
@@ -8,29 +8,35 @@ body {
 }
 
 .left {
-
-  height: 60vh;
-  width: 15vw;
+  height: 90vh;
+  width: 17vw;
   border: 1px solid black;
-  margin: auto;
+  margin: 1% auto;
   display: flex;
+  flex-direction: column;
 }
 .right {
-  height: 80vh;
-  width: 15vw;
+  height: 90vh;
+  width: 17vw;
   border: 1px solid black;
-  margin: auto;
+  margin: 1% auto;
 }
 .click {
   margin: auto;
 }
-
+.pic {
+  display: flex;
+  margin: 5% auto;
+  width: 100%;
+  height: 20%;
+}
 img {
+  margin: 0 auto;
   border: 4px solid white;
   border-radius: 5px;
   margin: auto;
   height: 100%;
-  width: 100%;
+  width: 80%;
 }
 /*.player {
   list-style: none;
