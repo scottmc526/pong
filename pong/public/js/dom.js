@@ -1,5 +1,5 @@
 $(document).ready(function (){
-  $('.player').click(function (){
+  $('.click').click(function (){
     var getter = $.ajax ({
       url: "https://randomuser.me/api/",
       method: 'GET',
